@@ -22,7 +22,6 @@ export function useInvestment() {
           throw new Error("You must be logged in to invest");
         }
 
-        // Call the API
         const response = await client.callConnectionAction(
           "sonic",
           "invest-in-token",
@@ -40,7 +39,6 @@ export function useInvestment() {
           return { success: true, transactionId: response.transaction_id };
         }
 
-        // Handle error
         throw new Error(response.error || "Failed to complete investment");
       } catch (err: any) {
         console.error("Error investing in token:", err);
@@ -72,12 +70,10 @@ export function useInvestment() {
 
       console.log("Get investments response:", response);
 
-      // Process and return investments
       if (response.success && Array.isArray(response.investments)) {
         return response.investments;
       }
 
-      // For now, return mock data for development
       if (user?.address) {
         if (user?.address) {
           return user ? generateMockInvestments(user.address) : [];
@@ -89,7 +85,6 @@ export function useInvestment() {
       console.error("Error fetching investments:", err);
       setError(err.message || "Failed to fetch investments");
 
-      // Return mock data for development
       return user ? generateMockInvestments(user.address) : [];
     } finally {
       setLoading(false);
@@ -101,17 +96,13 @@ export function useInvestment() {
     setError(null);
 
     try {
-      // Make sure user is logged in
       if (!user?.address) {
         throw new Error("You must be logged in to view portfolio stats");
       }
 
-      const address = user.address; // Store address in a local variable
-
-      // Get investments first
+      const address = user.address;
       const investments = await getInvestments();
 
-      // Calculate portfolio stats
       const totalInvested: number = investments.reduce(
         (sum: number, inv: Investment) => sum + inv.amount,
         0
@@ -120,7 +111,6 @@ export function useInvestment() {
       return {
         totalInvested,
         investmentCount: investments.length,
-        // Add more stats as needed
       };
     } catch (err: any) {
       console.error("Error fetching portfolio stats:", err);
@@ -135,7 +125,6 @@ export function useInvestment() {
     }
   }, [user?.address, getInvestments]);
 
-  // Helper function to generate mock investments for development
   const generateMockInvestments = (investor: string): Investment[] => {
     const investments = [];
     const count = Math.floor(Math.random() * 5) + 1;
