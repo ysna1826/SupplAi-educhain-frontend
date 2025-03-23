@@ -23,7 +23,7 @@ export function useInvestment() {
         }
 
         const response = await client.callConnectionAction(
-          "sonic",
+          "educhain",
           "invest-in-token",
           {
             token_id: tokenId,
@@ -63,7 +63,7 @@ export function useInvestment() {
 
       // Call the API
       const response = await client.callConnectionAction(
-        "sonic",
+        "educhain",
         "get-investments",
         { investor: user.address }
       );

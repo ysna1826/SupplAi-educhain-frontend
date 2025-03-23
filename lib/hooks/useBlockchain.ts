@@ -39,7 +39,7 @@ export function useBlockchain() {
       // Call the API to get blockchain transactions
       // Adapt this to use your actual endpoint - we're using system-health-check as a placeholder
       const response = await client.callConnectionAction(
-        "sonic",
+        "educhain",
         "system-health-check",
         {
           include_transactions: true,
@@ -154,7 +154,7 @@ export function useBlockchain() {
 
         // Replace with your actual verification endpoint
         const response = await client.callConnectionAction(
-          "sonic",
+          "educhain",
           "blockchain-verify",
           {
             batch_id: batchId,

@@ -75,7 +75,6 @@ interface SystemHealthResponse {
     };
     counters_reset?: boolean;
   };
-  result?: any;
   error?: string;
 }
 
@@ -267,7 +266,7 @@ class BerrySupplyChainClient {
     location: string
   ): Promise<any> {
     const result = await this.callConnectionAction(
-      "sonic",
+      "educhain",
       "monitor-berry-temperature",
       {
         batch_id: parseInt(batchId),
@@ -288,7 +287,7 @@ class BerrySupplyChainClient {
 
   async manageBerryQuality(batchId: string): Promise<any> {
     const result = await this.callConnectionAction(
-      "sonic",
+      "educhain",
       "manage-berry-quality",
       {
         batch_id: parseInt(batchId),
@@ -307,7 +306,7 @@ class BerrySupplyChainClient {
 
   async processRecommendations(batchId: string): Promise<any> {
     const result = await this.callConnectionAction(
-      "sonic",
+      "educhain",
       "process-agent-recommendations",
       {
         batch_id: parseInt(batchId),
@@ -327,7 +326,7 @@ class BerrySupplyChainClient {
   // Batch management methods
   async createBatch(berryType: string): Promise<any> {
     const result = await this.callConnectionAction(
-      "sonic",
+      "educhain",
       "manage-batch-lifecycle",
       {
         action: "create",
@@ -347,7 +346,7 @@ class BerrySupplyChainClient {
 
   async getBatchStatus(batchId: string): Promise<any> {
     const result = await this.callConnectionAction(
-      "sonic",
+      "educhain",
       "manage-batch-lifecycle",
       {
         action: "status",
@@ -367,7 +366,7 @@ class BerrySupplyChainClient {
 
   async getBatchReport(batchId: string): Promise<any> {
     const result = await this.callConnectionAction(
-      "sonic",
+      "educhain",
       "manage-batch-lifecycle",
       {
         action: "report",
@@ -387,7 +386,7 @@ class BerrySupplyChainClient {
 
   async completeBatch(batchId: string): Promise<any> {
     const result = await this.callConnectionAction(
-      "sonic",
+      "educhain",
       "manage-batch-lifecycle",
       {
         action: "complete",
@@ -397,7 +396,7 @@ class BerrySupplyChainClient {
 
     // Normalize response format
     if (result && typeof result === "object" && !result.success) {
-      if (result.status === "completed" || result.status === "redirected") {
+      if (result.status === "completed" || result.status === "success") {
         result.success = true;
       }
     }
@@ -412,7 +411,7 @@ class BerrySupplyChainClient {
     completeShipment: boolean
   ): Promise<any> {
     const result = await this.callConnectionAction(
-      "sonic",
+      "educhain",
       "manage-batch-sequence",
       {
         berry_type: berryType,
@@ -436,12 +435,12 @@ class BerrySupplyChainClient {
     resetCounters: boolean = false
   ): Promise<SystemHealthResponse> {
     try {
-      console.log("Calling sonic.system-health-check with params:", {
+      console.log("Calling educhain.system-health-check with params:", {
         reset_counters: resetCounters,
       });
 
       const response = await this.callConnectionAction(
-        "sonic",
+        "educhain",
         "system-health-check",
         {
           reset_counters: resetCounters,
@@ -513,7 +512,7 @@ class BerrySupplyChainClient {
         timestamp: new Date().toISOString(),
         connection: {
           is_connected: false,
-          network: "unknown",
+          network: "EduChain Testnet",
           account: undefined,
           balance: 0,
         },
@@ -524,7 +523,7 @@ class BerrySupplyChainClient {
           success_rate: "0%",
           total_gas_used: 0,
           avg_gas_used: 0,
-          total_cost: "0.000000 Sonic Tokens",
+          total_cost: "0.000000 EDU",
         },
         counters_reset: resetCounters,
       };
@@ -581,7 +580,7 @@ class BerrySupplyChainClient {
 
   // Utility methods
   async getAllBatches(): Promise<any[]> {
-    return this.callConnectionAction("sonic", "manage-batch-lifecycle", {
+    return this.callConnectionAction("educhain", "manage-batch-lifecycle", {
       action: "list",
     });
   }
@@ -675,7 +674,9 @@ class BerrySupplyChainClient {
       .map((_, index) => ({
         id: `tx-${index + 1}`,
         transaction_hash: `0x${(index + 1).toString(16).padStart(64, "0")}`,
-        transaction_url: `https://etherscan.io/tx/0x${(index + 1)
+        transaction_url: `https://edu-chain-testnet.blockscout.com/tx/0x${(
+          index + 1
+        )
           .toString(16)
           .padStart(64, "0")}`,
         timestamp: new Date(Date.now() - index * 3600000).toISOString(),

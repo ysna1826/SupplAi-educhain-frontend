@@ -24,7 +24,7 @@ export function useToken() {
 
         // Call the API
         const response = await client.callConnectionAction(
-          "sonic",
+          "educhain",
           "create-token",
           {
             name: tokenData.name,
@@ -65,7 +65,7 @@ export function useToken() {
       try {
         // Call the API
         const response = await client.callConnectionAction(
-          "sonic",
+          "educhain",
           "get-tokens",
           { filters }
         );
@@ -100,7 +100,7 @@ export function useToken() {
       try {
         // Call the API
         const response = await client.callConnectionAction(
-          "sonic",
+          "educhain",
           "get-token",
           { token_id: tokenId }
         );
@@ -135,7 +135,7 @@ export function useToken() {
       try {
         // Call the API
         const response = await client.callConnectionAction(
-          "sonic",
+          "educhain",
           "get-tokens",
           { filters: { creator: address } }
         );

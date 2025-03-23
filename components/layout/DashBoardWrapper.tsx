@@ -25,10 +25,10 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
         const result = await loadAndStartAgent();
 
         if (result.success) {
-          // Check if sonic connection exists
-          if (result.connections && !result.connections.sonic) {
+          // Check if educhain connection exists
+          if (result.connections && !result.connections.educhain) {
             setError(
-              "The 'sonic' connection is missing. Check your agent configuration."
+              "The 'educhain' connection is missing. Check your agent configuration."
             );
           } else {
             // All good!

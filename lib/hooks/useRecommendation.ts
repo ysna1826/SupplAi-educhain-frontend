@@ -27,7 +27,7 @@ export function useRecommendations() {
 
       // Try to get recommendations from the API
       const response = await client.callConnectionAction(
-        "sonic",
+        "educhain",
         "process-agent-recommendations",
         {
           batch_id: batchId,

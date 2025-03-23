@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold mb-4">System Info</h3>
             <div className="space-y-2 text-sm text-gray-400">
               <p>Built with Next.js and Tailwind CSS</p>
-              <p>Connected to Sonic Blockchain</p>
+              <p>Connected to Educhain Blockchain</p>
               <p>Temperature Monitoring Agent: v1.0.0</p>
             </div>
             <div className="mt-4 flex space-x-4">

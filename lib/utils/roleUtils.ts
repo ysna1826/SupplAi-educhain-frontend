@@ -2,7 +2,7 @@ import { UserRole } from "@/types/auth";
 import BerrySupplyChainClient from "../api/berrySupplyChainClient";
 
 // Addresses could be stored in environment variables or fetched from contract
-const MANAGER_ADDRESS = "0x123456789abcdef123456789abcdef123456789a";
+const MANAGER_ADDRESS = "0xb49dB08aC802D01bF9D46511165C09E7c5C83623";
 
 export async function determineRole(address: string): Promise<UserRole> {
   // Case insensitive comparison for addresses
@@ -38,7 +38,7 @@ export async function checkFarmerRegistration(
   try {
     // Replace with actual contract call
     const response = await client.callConnectionAction(
-      "sonic",
+      "educhain",
       "check-farmer-status",
       { address }
     );
@@ -56,7 +56,7 @@ export async function registerFarmer(farmerAddress: string): Promise<boolean> {
   try {
     // Replace with actual contract call
     const response = await client.callConnectionAction(
-      "sonic",
+      "educhain",
       "register-farmer",
       { address: farmerAddress }
     );
